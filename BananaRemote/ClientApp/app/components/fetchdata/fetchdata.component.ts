@@ -8,9 +8,16 @@ import { Http } from '@angular/http';
 export class FetchDataComponent {
     public forecasts: WeatherForecast[];
 
-    constructor(http: Http, @Inject('BASE_URL') baseUrl: string) {
+    constructor(private http: Http, @Inject('BASE_URL') private baseUrl: string) {
         http.get(baseUrl + 'api/SampleData/WeatherForecasts').subscribe(result => {
             this.forecasts = result.json() as WeatherForecast[];
+        }, error => console.error(error));
+    }
+
+    tryPost = () => {
+        console.log("posting!!");
+        this.http.post(this.baseUrl + 'api/WebHooks/TryPost', {}).subscribe(result => {
+            console.log("post succeeded");
         }, error => console.error(error));
     }
 }

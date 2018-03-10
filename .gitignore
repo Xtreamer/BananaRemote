@@ -3,3 +3,6 @@
 /.vs/BananaRemote/v15/Server/sqlite3/storage.ide
 /.vs/BananaRemote/v15/Server/sqlite3/storage.ide-shm
 /.vs/BananaRemote/v15/Server/sqlite3/storage.ide-wal
+**/bin/Debug/*
+**/obj/Debug/*
+**/obj/*
