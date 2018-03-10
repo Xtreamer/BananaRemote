@@ -35,7 +35,6 @@ namespace OnkyoPlugin
 
         private void ISCPSocket_OnPacketRecieved(string str)
         {
-            throw new NotImplementedException();
         }
 
         public void PowerOn()
