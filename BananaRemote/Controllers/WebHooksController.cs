@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Commands;
 using Microsoft.AspNetCore.Mvc;
 using OnkyoPlugin;
 
@@ -10,20 +10,29 @@ namespace BananaRemote.Controllers
     [Route("api/[controller]")]
     public class WebHooksController : Controller
     {
-        private Sender onkyoSender;
+        private ISender onkyoSender;
+
+        public WebHooksController(ISender onkyoSender)
+        {
+            this.onkyoSender = onkyoSender;
+        }
 
         [HttpPost("[action]")]
         public void TryPostOn()
         {
-            CreateSender();
-            onkyoSender.PowerOn();
+            onkyoSender.Send("system-power:on");
         }        
 
         [HttpPost("[action]")]
         public void TryPostOff()
         {
-            CreateSender();
-            onkyoSender.PowerOff();
+            onkyoSender.Send("system-power:standby");
+        }
+
+        [HttpPost("[action]")]
+        public void SendCommand([FromBody] Command command)
+        {
+            onkyoSender.Send(command.Text);
         }
 
         private void CreateSender()

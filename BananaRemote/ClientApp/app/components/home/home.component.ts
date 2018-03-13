@@ -11,6 +11,8 @@ export class HomeComponent {
         @Inject('BASE_URL') private baseUrl: string) {
     }
 
+    command: string;
+
     tryPostOn = () => {
         console.log("posting on!!");
         this.http.post(this.baseUrl + 'api/WebHooks/TryPostOn', {}).subscribe(result => {
@@ -23,5 +25,14 @@ export class HomeComponent {
         this.http.post(this.baseUrl + 'api/WebHooks/TryPostOff', {}).subscribe(result => {
             console.log("post off succeeded");
         }, error => console.error(error));
+    }
+
+    sendCommand = () => {
+        console.log("command is: ", this.command);
+        if (this.command) {
+            this.http.post(this.baseUrl + 'api/WebHooks/SendCommand', { text: this.command }).subscribe(result => {
+                console.log("post on succeeded");
+            }, error => console.error(error));
+        }
     }
 }
